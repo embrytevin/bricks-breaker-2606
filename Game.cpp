@@ -26,6 +26,17 @@ void Game::Reset()
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
+
+	bricks.push_back(brick);
+	brick.x_position = 15;
+	bricks.push_back(brick);
+	brick.x_position = 35;
+	bricks.push_back(brick);
+	brick.x_position = 65;
+	bricks.push_back(brick);
+	brick.x_position = 90;
+	bricks.push_back(brick);
+
 }
 
 void Game::ResetBall()
@@ -68,8 +79,16 @@ void Game::Render() const
 	paddle.Draw();
 	ball.Draw();
 
+	
+
 	// TODO #3 - Update render to render all bricks
-	brick.Draw();
+	for (int numBricks = 0; numBricks < bricks.size(); ++numBricks)
+	{
+	    bricks[numBricks].Draw();	 
+		
+		std::cout << "       ";
+	}
+
 
 	Console::Lock(false);
 }
