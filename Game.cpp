@@ -30,7 +30,7 @@ void Game::Reset()
 	while(bricks.size() < numOfBricks)
 	{
 		bricks.push_back(brick);
-		brick.x_position += 20;
+		brick.x_position += 17.5f;
 	}
 
 }
@@ -87,6 +87,7 @@ void Game::Render() const
 
 
 	Console::Lock(false);
+	Sleep(5);
 }
 
 void Game::CheckCollision()
@@ -101,15 +102,10 @@ void Game::CheckCollision()
 			ball.y_velocity *= -1;
 
 			// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
-			
-				
-					
-			
-				if (bricks[i].Contains(ball.x_velocity, ball.y_velocity))
+				if (bricks[i].color == ConsoleColor::Black)
 				{
 					
-					bricks.pop_back();
-					bricks[i].color = ConsoleColor::Black;
+					bricks.erase(bricks.begin() + i);
 					
 				}
 			 
@@ -119,7 +115,16 @@ void Game::CheckCollision()
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
 
+	if(bricks.empty())
+	{
+	   
+		ball.moving = false;
+		std::cout<< "Congragulations!!!! you beat the game!!!\n\n\n\n\n\n\n\n\n";
 
+		std::cout << "\t\t\t\t\t\t\t\tpress R to reset";
+	
+	
+	}
 
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
@@ -128,4 +133,12 @@ void Game::CheckCollision()
 	}
 
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
+	
+	
+
+		//std::cout << "You Lose Try Harder Next Time\n";
+		//std::cout << "press R to reset";
+
+	
+	
 }
