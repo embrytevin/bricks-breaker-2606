@@ -26,16 +26,12 @@ void Game::Reset()
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
-
-	bricks.push_back(brick);
-	brick.x_position = 15;
-	bricks.push_back(brick);
-	brick.x_position = 35;
-	bricks.push_back(brick);
-	brick.x_position = 65;
-	bricks.push_back(brick);
-	brick.x_position = 90;
-	bricks.push_back(brick);
+	int numOfBricks = 5;
+	while(bricks.size() < numOfBricks)
+	{
+		bricks.push_back(brick);
+		brick.x_position += 20;
+	}
 
 }
 
@@ -76,6 +72,7 @@ void Game::Render() const
 	Console::Lock(true);
 	Console::Clear();
 	
+	
 	paddle.Draw();
 	ball.Draw();
 
@@ -85,8 +82,7 @@ void Game::Render() const
 	for (int numBricks = 0; numBricks < bricks.size(); ++numBricks)
 	{
 	    bricks[numBricks].Draw();	 
-		
-		std::cout << "       ";
+				
 	}
 
 
@@ -95,17 +91,35 @@ void Game::Render() const
 
 void Game::CheckCollision()
 {
+
 	// TODO #4 - Update collision to check all bricks
-	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
+	for(int i = 0; i < bricks.size(); i++)
 	{
-		brick.color = ConsoleColor(brick.color - 1);
-		ball.y_velocity *= -1;
+		if (bricks[i].Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
+		{
+			bricks[i].color = ConsoleColor(bricks[i].color - 1);
+			ball.y_velocity *= -1;
 
-		// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
+			// TODO #5 - If the ball hits the same brick 3 times (color == black), remove it from the vector
+			
+				
+					
+			
+				if (bricks[i].Contains(ball.x_velocity, ball.y_velocity))
+				{
+					
+					bricks.pop_back();
+					bricks[i].color = ConsoleColor::Black;
+					
+				}
+			 
 
+		}
 	}
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
+
+
 
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
