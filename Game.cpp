@@ -27,10 +27,11 @@ void Game::Reset()
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
 	int numOfBricks = 1;
+	float brickSpacing = 17.5f;
 	while(bricks.size() < numOfBricks)
 	{
 		bricks.push_back(brick);
-		brick.x_position += 17.5f;
+		brick.x_position += brickSpacing;
 	}
 
 }
@@ -86,11 +87,16 @@ void Game::Render() const
 
 	
 	Console::Lock(false);
-	//Sleep(5);
+	
 }
 
 void Game::CheckCollision()
 {
+
+
+
+	int middleScreenX = 20;
+	int middleScreenY = 15;
 
 	// TODO #4 - Update collision to check all bricks
 	for(int i = 0; i < bricks.size(); i++)
@@ -118,9 +124,9 @@ void Game::CheckCollision()
 	{
 
 		ball.moving = false;
-		//SetCursorPos(20, 20);
+		//SetCursorPos(20, 20);  
+		Console::SetCursorPosition(middleScreenX, middleScreenY);
 		std::cout << "Congragulations!!!! you beat the game!!!";
-
 		std::cout << "press R to reset";
 
 
@@ -139,7 +145,8 @@ void Game::CheckCollision()
 	if(paddle.y_position != ball.y_position && ball.y_position >= WINDOW_HEIGHT - 10)
 	{
 		ball.moving = false;
-		std::cout << "You Lose Try Harder Next Time\n";
+		Console::SetCursorPosition(middleScreenX, middleScreenY);
+		std::cout << "You Lose Try Harder Next Time\t";
 		std::cout << "press R to reset";
 	}
 
