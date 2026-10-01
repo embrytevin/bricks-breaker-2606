@@ -26,7 +26,7 @@ void Game::Reset()
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
-	int numOfBricks = 5;
+	int numOfBricks = 1;
 	while(bricks.size() < numOfBricks)
 	{
 		bricks.push_back(brick);
@@ -76,7 +76,6 @@ void Game::Render() const
 	paddle.Draw();
 	ball.Draw();
 
-	
 
 	// TODO #3 - Update render to render all bricks
 	for (int numBricks = 0; numBricks < bricks.size(); ++numBricks)
@@ -85,9 +84,9 @@ void Game::Render() const
 				
 	}
 
-
+	
 	Console::Lock(false);
-	Sleep(5);
+	//Sleep(5);
 }
 
 void Game::CheckCollision()
@@ -115,16 +114,18 @@ void Game::CheckCollision()
 
 	// TODO #6 - If no bricks remain, pause ball and display (render) victory text with R to reset
 
-	if(bricks.empty())
+	if (bricks.empty())
 	{
-	   
-		ball.moving = false;
-		std::cout<< "Congragulations!!!! you beat the game!!!\n\n\n\n\n\n\n\n\n";
 
-		std::cout << "\t\t\t\t\t\t\t\tpress R to reset";
-	
-	
+		ball.moving = false;
+		//SetCursorPos(20, 20);
+		std::cout << "Congragulations!!!! you beat the game!!!";
+
+		std::cout << "press R to reset";
+
+
 	}
+	
 
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
@@ -135,9 +136,12 @@ void Game::CheckCollision()
 	// TODO #7 - If ball touches bottom of window, pause ball and display (render) defeat text with R to reset
 	
 	
-
-		//std::cout << "You Lose Try Harder Next Time\n";
-		//std::cout << "press R to reset";
+	if(paddle.y_position != ball.y_position && ball.y_position >= WINDOW_HEIGHT - 10)
+	{
+		ball.moving = false;
+		std::cout << "You Lose Try Harder Next Time\n";
+		std::cout << "press R to reset";
+	}
 
 	
 	
