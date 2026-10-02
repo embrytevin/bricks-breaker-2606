@@ -126,7 +126,7 @@ void Game::CheckCollision()
 	{
 
 		ball.moving = false;
-		//SetCursorPos(20, 20);  
+		  
 		Console::SetCursorPosition(middleScreenX, middleScreenY);
 		std::cout << "Congragulations!!!! you beat the game!!!";
 		std::cout << "press R to reset";
