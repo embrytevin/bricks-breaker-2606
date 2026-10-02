@@ -26,7 +26,7 @@ void Game::Reset()
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
-	int numOfBricks = 1;
+	int numOfBricks = 5;
 	float brickSpacing = 17.5f;
 	while(bricks.size() < numOfBricks)
 	{
@@ -72,8 +72,10 @@ void Game::Render() const
 {
 	Console::Lock(true);
 	Console::Clear();
+	std::string Title = "Brick Breaker";
 	
-	
+	Console::SetCursorPosition(50, 0);
+	std::cout << Title;
 	paddle.Draw();
 	ball.Draw();
 
