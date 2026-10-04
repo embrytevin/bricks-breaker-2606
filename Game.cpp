@@ -67,15 +67,31 @@ bool Game::Update()
 	return true;
 }
 
+void Game::Controls() const
+{
+	std::string Title = "Brick Breaker";
+
+	Console::SetCursorPosition(50, 0);
+	std::cout << Title;
+
+	std::string controls =
+		R"(
+			Press Space - Start/Pause
+			Press R - Restart
+			Press  Left,Right Arrow - Move		
+		)";
+	Console::SetCursorPosition(0, 20);
+	std::cout << controls << "\n"; 
+
+
+}
+
 //  All rendering, including text, should occur in the Render function
 void Game::Render() const
 {
 	Console::Lock(true);
 	Console::Clear();
-	std::string Title = "Brick Breaker";
-	
-	Console::SetCursorPosition(50, 0);
-	std::cout << Title;
+	Controls();
 	paddle.Draw();
 	ball.Draw();
 
@@ -87,7 +103,7 @@ void Game::Render() const
 				
 	}
 
-	
+	Sleep(15);
 	Console::Lock(false);
 	
 }
